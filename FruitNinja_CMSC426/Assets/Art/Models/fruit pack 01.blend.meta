@@ -3,7 +3,72 @@ guid: 146a0ca5355fe2d4fa217f9ccfdfaf16
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Skin
+    second: {fileID: 2100000, guid: bf8e7200e115138489f6f647fb8df53b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Skin.001
+    second: {fileID: 2100000, guid: 4ca3d691948837641a78aafc5172c840, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Skin.002
+    second: {fileID: 2100000, guid: 357f9f2ff12334d4494fb5d04b6dff27, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Skin.003
+    second: {fileID: 2100000, guid: 62af621dc757b084c821a9b0893f0ca7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Stem
+    second: {fileID: 2100000, guid: 158f9941de32c5a4dafb4443243d9edc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Stem.002
+    second: {fileID: 2100000, guid: 17bcc39f04fd4254885a38caec067c82, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: coconut
+    second: {fileID: 2100000, guid: 6afb9f213fb01374cb283c85eba35656, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: skin
+    second: {fileID: 2100000, guid: aaac5ebcb612fa34f9bea94c12526397, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: skin.001
+    second: {fileID: 2100000, guid: 88412e8ecaee8254c8124c9b1aa3c734, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: skin.002
+    second: {fileID: 2100000, guid: 084055ef977a9a34ab67bd0fdc48e512, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: skin.003
+    second: {fileID: 2100000, guid: 97d0146a45413104e9894c1fc7ea5d28, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: skin.004
+    second: {fileID: 2100000, guid: c969c3adc3505b34f91dfad8f6b9b303, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: stem
+    second: {fileID: 2100000, guid: 1a18759aa3bfa2249b72bab941ed4681, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
