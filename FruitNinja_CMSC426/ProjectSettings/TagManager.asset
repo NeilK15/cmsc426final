@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - DeathZone
+  - Blade
   layers:
   - Default
   - TransparentFX

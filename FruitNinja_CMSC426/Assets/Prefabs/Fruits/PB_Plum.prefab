@@ -74,7 +74,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreValue: 1
-  slicedPrefab: {fileID: 0}
+  crossSectionMaterial: {fileID: 2100000, guid: 084055ef977a9a34ab67bd0fdc48e512, type: 2}
+  destroyDelay: 3
 --- !u!1 &7635816131268955079
 GameObject:
   m_ObjectHideFlags: 0

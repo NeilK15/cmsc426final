@@ -7,7 +7,6 @@ public class TimerComponent : MonoBehaviour
     public UnityEvent onTimerEnd;
 
     public float RemainingTime { get; private set; }
-    public int Score { get; set; } = 0;
 
     private int lastSecond = -1;
 

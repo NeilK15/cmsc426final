@@ -182,4 +182,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreValue: 1
-  slicedPrefab: {fileID: 0}
+  crossSectionMaterial: {fileID: 2100000, guid: 1a18759aa3bfa2249b72bab941ed4681, type: 2}
+  destroyDelay: 3

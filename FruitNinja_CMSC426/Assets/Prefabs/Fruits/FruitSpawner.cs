@@ -36,7 +36,7 @@ public class FruitSpawner : MonoBehaviour
 
         BoxCollider col = GetComponent<BoxCollider>();
         col.isTrigger = true;
-        col.size = new Vector3(camWidth * 2f, 1f, 20f); // slightly wider than screen
+        col.size = new Vector3(camWidth * 10f, 1f, 100f); // slightly wider than screen
         col.center = Vector3.zero;
     }
 
