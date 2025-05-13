@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2120551499942369294}
   - component: {fileID: 3824127474236915072}
   - component: {fileID: 5592418549812792927}
+  - component: {fileID: 6812418417411642109}
   m_Layer: 0
   m_Name: cherry
   m_TagString: Untagged
@@ -87,6 +88,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &6812418417411642109
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4338402324230935882}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.9999994, y: 1.9999993, z: 3.3336084}
+  m_Center: {x: -0.000000059604645, y: 0.00000023841855, z: 0.7773166}
 --- !u!1 &6397301442102812214
 GameObject:
   m_ObjectHideFlags: 0

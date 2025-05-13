@@ -196,10 +196,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 5304803850793800013}
-    - target: {fileID: 373309002702400669, guid: 250ac6bcaf1df104babcda878f587579, type: 3}
-      propertyPath: m_PlaneDistance
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 3073045684813022629, guid: 250ac6bcaf1df104babcda878f587579, type: 3}
       propertyPath: m_Name
       value: MainHUD
@@ -242,6 +238,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5376148190681878812, guid: 250ac6bcaf1df104babcda878f587579, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8771881012481040554, guid: 250ac6bcaf1df104babcda878f587579, type: 3}
+      propertyPath: m_RenderMode
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

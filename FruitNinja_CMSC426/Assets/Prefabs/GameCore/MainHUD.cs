@@ -16,7 +16,8 @@ public class MainHUD : MonoBehaviour
     [SerializeField] private GameObject gameMenuLayer;
     [SerializeField] private GameObject menuLayer;
     [SerializeField] private GameObject popupLayer;
-    [SerializeField] private UILayerRequest initialScreen;
+    [SerializeField] private UILayerRequest[] initialScreens;
+
 
     private Dictionary<UILayerType, Stack<GameObject>> layerStacks = new();
 
@@ -32,17 +33,21 @@ public class MainHUD : MonoBehaviour
 
         var instance = GameAccess.GetGameInstance();
         if (instance != null)
-            instance.onInitialized.AddListener(SpawnInitialScreen);
+            instance.onInitialized.AddListener(SpawnInitialScreens);
     }
 
-    private void SpawnInitialScreen()
+    private void SpawnInitialScreens()
     {
-        if (initialScreen.prefab != null)
+        foreach (var screenData in initialScreens)
         {
-            GameObject screen = Instantiate(initialScreen.prefab);
-            PushToLayer(new UILayerRequest { prefab = screen, layer = initialScreen.layer });
+            if (screenData.prefab != null)
+            {
+                GameObject screen = Instantiate(screenData.prefab);
+                PushToLayer(new UILayerRequest { prefab = screen, layer = screenData.layer });
+            }
         }
     }
+
 
     public void PushToLayer(UILayerRequest request)
     {

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 823379601154298696}
   - component: {fileID: 8558884748095918137}
   - component: {fileID: 4147980219745338081}
+  - component: {fileID: 128421548965355321}
   m_Layer: 0
   m_Name: mango
   m_TagString: Untagged
@@ -86,6 +87,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &128421548965355321
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 368775039413976129}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.9999994, y: 1.9999995, z: 1.8435203}
+  m_Center: {x: -0.000000059604645, y: 0.00000023841858, z: 7.6232965e-21}
 --- !u!1 &2358195956946180996
 GameObject:
   m_ObjectHideFlags: 0
