@@ -4,6 +4,7 @@ public static class GameAccess
     private static GameState _gameState;
     private static MainHUD _mainHUD;
     private static GameMode _gameMode;
+    private static Controller _controller;
 
     public static void RegisterGameInstance(GameInstance gi)
     {
@@ -31,6 +32,14 @@ public static class GameAccess
         else _gameMode = gm;
     }
 
+
+    public static void RegisterController(Controller ctrl)
+    {
+        if (_controller != null) UnityEngine.Object.Destroy(ctrl.gameObject);
+        else _controller = ctrl;
+    }
+
+    public static Controller GetController() => _controller;
     public static GameInstance GetGameInstance() => _gameInstance;
     public static GameState GetGameState() => _gameState;
     public static MainHUD GetMainHUD() => _mainHUD;

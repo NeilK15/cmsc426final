@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1894514494707920030}
   m_Layer: 5
-  m_Name: GameHud
+  m_Name: FruitNInjaHud
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
