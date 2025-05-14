@@ -17,6 +17,8 @@ cap = cv2.VideoCapture(0)
 cap.set(3, 640)
 cap.set(4, 480)
 
+window = "detection"
+
 try:
     print("Initialized")
     # Connect to the server and send the data
@@ -27,32 +29,45 @@ try:
         # Get detection results generator
         results = model(img, stream=True)
         for result in results:
+            
+
             # For each result get the keypoints
+            norm_keypts = result.keypoints.numpy().xyn
+            
             keypts = result.keypoints.numpy().data
             if keypts.shape[0] > 0:
                 # If there is a detection
 
-                # Get wrist keypoints
-                leftwrist = keypts[0][9].tolist()
-                rightwrist = keypts[0][10].tolist()
+                # Get wrist normalized_keypoints
+                leftwrist = norm_keypts[0][9].tolist()
+                rightwrist = norm_keypts[0][10].tolist()
+
+                # Get visibility of the keypoints
+                leftwrist_visibility = float(keypts[0][9][2])
+                rightwrist_visibility = float(keypts[0][10][2])
 
                 # Dictionary with data
                 detections = {'left': 
                             {
-                                'detected': leftwrist[2]>0.5, 
-                                'x':int(leftwrist[0]),
-                                'y':int(leftwrist[1])
+                                'detected': leftwrist_visibility>0.5, 
+                                'x':leftwrist[0],
+                                'y':leftwrist[1]
                             },
                             'right':{
-                                'detected': rightwrist[2]>0.5, 
-                                'x':int(rightwrist[0]),
-                                'y':int(rightwrist[1])
+                                'detected': rightwrist_visibility>0.5, 
+                                'x':rightwrist[0],
+                                'y':rightwrist[1]
                             }
                             }
                 # Create JSON string and send on socket
                 data = json.dumps(detections)
                 print(data)
                 sock.sendall(data.encode("utf-8"))
+
+            # Visualization:
+            plot_img = result.plot()
+            cv2.imshow(window, plot_img)
+            cv2.waitKey(1)
 
 finally:
     cv2.destroyAllWindows()
