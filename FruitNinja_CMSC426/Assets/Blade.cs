@@ -95,15 +95,18 @@ public class Blade : MonoBehaviour
     /** TOD: CHANGE TO USE SCREEN CAPTURE **/
     private Vector3 GetScreenPosition(Vector3 screenPosition)
     {
-        if (rightHanded && detectionData.right.detected)
+        if (detectionData is not null)
         {
-            screenPosition.x = Screen.width * detectionData.right.x;
-            screenPosition.y = Screen.height * detectionData.right.y;
-        }
-        else if (!rightHanded && detectionData.left.detected)
-        {
-            screenPosition.x = Screen.width * detectionData.left.x;
-            screenPosition.y = Screen.height * detectionData.left.y;
+            if (rightHanded && detectionData.right.detected)
+            {
+                screenPosition.x = Screen.width * (1-detectionData.right.x);
+                screenPosition.y = Screen.height * (1-detectionData.right.y);
+            }
+            else if (!rightHanded && detectionData.left.detected)
+            {
+                screenPosition.x = Screen.width * (1-detectionData.left.x);
+                screenPosition.y = Screen.height * (1-detectionData.left.y);
+            }
         }
         screenPosition.z = Mathf.Abs(cam.transform.position.z);
         Vector3 worldPos = cam.ScreenToWorldPoint(screenPosition);

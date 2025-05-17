@@ -1,15 +1,14 @@
 # cmsc426final
 
 ### Notes:
-- I had issues running the project I just get a blue screen
-- The approach to get detections is to run a TCP server in `Blade.cs`
-- Then there is a python client script that runs detections and sends results to server
-- The server should be started first and in theory when the Blade appears or when script starts running
-- Then the client should be run
+- The approach to get detections is to run a TCP server in `Blade.cs`.
+- Then there is a python client script that runs detections and sends results to server.
+- I do not understand how to create a Prefab for Blade.cs, and the script has to be added I do not know how to save it.
+- Detection works and moves the `Blade`, but has no trail as detection is jittery, might require smoothing.
+- Detection is kind of slow if you have GPU test and try with CUDA how fast it is.
 
 ### Running Blade
-- Should run when Blade is spawned in game
-- Should be Debug logs that should say what is happening
+- Blade is spawned in game and the script runs creating a server
 
 ### Running Detection Code
 Create a virtual environment and install the requirements in seperate window:
@@ -22,6 +21,10 @@ source ./venv/bin/activate # for linux
 pip install -r requirements.txt
 python YOLODetectionClient.py
 ```
+
+You should then see the position of the blade change on screen, in the logs for `YOLODetectionClient.py` and `Blade.cs` you should see the JSON that is being sent and received being printed.
+
+
 
 - Eventually I plan to make this an executable with pyinstaller and put it into some assets folder in Unity so it persists when built
 - Then in the main game logic using the Process Unity API can run the executable upon startup of the game
