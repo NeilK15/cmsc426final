@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5578363791759361628}
-  - component: {fileID: 7309294348715194065}
   - component: {fileID: 4766903986189486805}
+  - component: {fileID: 2762912724136609668}
   m_Layer: 0
   m_Name: Blade
   m_TagString: Blade
@@ -34,19 +34,6 @@ Transform:
   - {fileID: 7757787264006040744}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7309294348715194065
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1051592509746837902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2cd89a056e9dc24ca794b6b423b2498, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cutVelocityThreshold: 5
 --- !u!65 &4766903986189486805
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -68,6 +55,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 50}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2762912724136609668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051592509746837902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7990f3a27a36c704682e807489dfb337, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cutVelocityThreshold: 5
+  connectionPort: 25001
+  rightHanded: 1
 --- !u!1 &5539427834041774583
 GameObject:
   m_ObjectHideFlags: 0
