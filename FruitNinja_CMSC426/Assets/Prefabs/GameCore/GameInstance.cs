@@ -28,19 +28,23 @@ public class GameInstance : MonoBehaviour
 
     private IEnumerator Init()
     {
-        if (gameModePrefab)
+        //you can put a loading screen here before spawning the game if needed
+
+        GameMode gameMode;
+        GameState gameState;
+        if (gameModePrefab && gameStatePrefab)
         {
-            Instantiate(gameModePrefab);
-            yield return null;
+            gameMode = Instantiate(gameModePrefab).GetComponent<GameMode>();
+            gameState = Instantiate(gameStatePrefab).GetComponent<GameState>();
+
+            GameAccess.RegisterGameMode(gameMode);
+            GameAccess.RegisterGameState(gameState);
+            
+            StartCoroutine(gameMode.Init());
+            StartCoroutine(gameState.Init());
+
         }
-
-        if (gameStatePrefab)
-        {
-            Instantiate(gameStatePrefab);
-            yield return null;
-        }
-
-
         onInitialized?.Invoke();
+        yield return null;
     }
 }

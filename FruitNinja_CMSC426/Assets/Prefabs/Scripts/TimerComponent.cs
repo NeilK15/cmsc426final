@@ -9,7 +9,7 @@ public class TimerComponent : MonoBehaviour
     public float RemainingTime { get; private set; }
 
     private int lastSecond = -1;
-
+    
     private void Awake()
     {
         if (onSecondTick == null) onSecondTick = new UnityEvent();

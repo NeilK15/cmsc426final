@@ -17,6 +17,6 @@ public class ScoreWidget : MonoBehaviour
 
     private void UpdateScore(int newScore)
     {
-        scoreText.text = $"Score: {newScore}";
+        if(scoreText) scoreText.text = $"Score: {newScore}";
     }
 }

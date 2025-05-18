@@ -4,20 +4,23 @@ using System.Collections;
 public class GameMode : MonoBehaviour
 {
     [SerializeField] private GameObject controllerPrefab;
+    [SerializeField] private GameObject FruitNinjaCorePrefab;
+    public FruitNinjaCore fruitNinjaCore { get; private set; }
 
-    private void Awake()
-    {
-        GameAccess.RegisterGameMode(this);
-        StartCoroutine(Init());
-    }
 
-    private IEnumerator Init()
+    public IEnumerator Init()
     {
+
         var spawn = FindFirstObjectByType<PlayerSpawn>();
         if (controllerPrefab && spawn != null)
         {
-            Instantiate(controllerPrefab, spawn.transform.position, spawn.transform.rotation);
-            yield return null;
+            var controllerGO = Instantiate(controllerPrefab, spawn.transform.position, spawn.transform.rotation);
+            var controller = controllerGO.GetComponent<Controller>();
+            if (controller != null)
+                yield return controller.Init(); // waits until controller is fully initialized  
+                fruitNinjaCore = Instantiate(FruitNinjaCorePrefab).GetComponent<FruitNinjaCore>();
+                fruitNinjaCore.StartFruitNinja();
+                
         }
         else
         {

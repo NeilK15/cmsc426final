@@ -15,12 +15,29 @@ public class FruitSpawner : MonoBehaviour
 
     private List<Fruit> activeFruits = new();
     private Vector3[] spawnPoints;
+    private Coroutine spawnLoopRoutine;
 
     private void Start()
     {
         ConfigureAsDeathZone();
         CalculateSpawnPoints();
-        StartCoroutine(SpawnLoop());
+        spawnLoopRoutine = StartCoroutine(SpawnLoop());
+    }
+    public void End()
+    {
+        if (spawnLoopRoutine != null)
+            StopCoroutine(spawnLoopRoutine);
+
+        foreach (var fruit in activeFruits)
+        {
+            if (fruit != null)
+            {
+                fruit.OnFruitDeath -= HandleFruitDeath;
+                Destroy(fruit.gameObject); // or call fruit.ForceKill() if you have one
+            }
+        }
+
+        activeFruits.Clear();
     }
 
     private void ConfigureAsDeathZone()

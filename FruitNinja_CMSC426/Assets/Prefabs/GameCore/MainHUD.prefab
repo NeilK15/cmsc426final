@@ -51,9 +51,7 @@ MonoBehaviour:
   gameMenuLayer: {fileID: 7773586897365464964}
   menuLayer: {fileID: 5728608200240134922}
   popupLayer: {fileID: 3545835107972323934}
-  initialScreens:
-  - prefab: {fileID: 3145186044807029821, guid: b553d94a8bb26d242be558e0d3751c41, type: 3}
-    layer: 0
+  initialScreens: []
 --- !u!1 &4455702291045422765
 GameObject:
   m_ObjectHideFlags: 0
