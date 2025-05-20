@@ -1,41 +1,37 @@
 # cmsc426final
 
 ### Notes:
-- The approach to get detections is to run a TCP server in `Blade.cs`.
-- Then there is a python client script that runs detections and sends results to server.
-- I do not understand how to create a Prefab for Blade.cs, and the script has to be added I do not know how to save it.
-- Detection works and moves the `Blade`, but has no trail as detection is jittery, might require smoothing.
-- Detection is kind of slow if you have GPU test and try with CUDA how fast it is.
+- Trained new detection model `yolo11n-handpose.onnx` on hand keypoints.
+- This works better than the full body pose detection from before as that is better for when whole body is in frame.
+- Also converted models to `.onnx` format as it optimizes computation.
+- Run this new client with `hand_detection_client.py`.
+- Seperated the server logic to the `DetectionServer.cs` script from `Blade.cs`.
+- I attempted to add a webcam with `WebCam.cs` however the camera can not be accessed by
+two resources at the same time, so the detection script fails.
+- Would have to add a server that feeds video stream to both.
 
 ### Running Blade
-- Blade is spawned in game and the script runs creating a server
+- Blade is spawned in game and pulls `DetectionData` from `DetectionServer.cs` script.
 
 ### Running Detection Code
-Create a virtual environment and install the requirements in seperate window:
-
+Create a virtual environment and install the requirements in separate window:
 ```bash
 cd YOLODetectionClient
 python -m venv ./venv
 source ./venv/bin/activate # for linux
 ./venv/Scripts/activate #for windows 
 pip install -r requirements.txt
+```
+
+#### Run New Hand Detection Client
+```bash
+python hand_detection_client.py
+```
+
+#### Run Old Full Body Detection Client
+```bash
 python YOLODetectionClient.py
 ```
 
-You should then see the position of the blade change on screen, in the logs for `YOLODetectionClient.py` and `Blade.cs` you should see the JSON that is being sent and received being printed.
-
-
-
-- Eventually I plan to make this an executable with pyinstaller and put it into some assets folder in Unity so it persists when built
-- Then in the main game logic using the Process Unity API can run the executable upon startup of the game
-
-To see how it should work run:
-```bash
-cd YOLODetectionClient
-python testserver.py
-```
-then in seperate terminal run:
-```bash
-cd YOLODetectionClient
-python YOLODetectionClient.py
-```
+- Should see detection data being printed in Unity console and python console.
+- Can uncomment visualization block in python client to see prediction.

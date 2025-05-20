@@ -15,7 +15,16 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # Smaller faster model
 model = YOLO("yolo11n-pose.onnx")
 
+
 window = "detection"
+
+print("Available cameras:")
+for i in range(10):
+    cap = cv2.VideoCapture(i)
+    if cap.isOpened():
+        print(f"Camera {i} is available")
+        cap.release()
+
 connected = False
 try:
     print("Initialized")
