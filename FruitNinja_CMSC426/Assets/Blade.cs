@@ -16,15 +16,15 @@ public class Blade : MonoBehaviour
     private Vector3 lastPos;
     private TrailRenderer trail;
 
-    private Thread thread;
-    public int connectionPort = 25001;
-    private TcpListener server;
-    private TcpClient client;
-    private bool running;
+    // private Thread thread;
+    // public int connectionPort = 25001;
+    // private TcpListener server;
+    // private TcpClient client;
+    // private bool running;
 
     public bool rightHanded = true;
 
-    // [SerializeField] private DetectionServer server;
+    [SerializeField] private DetectionServer detectionServer;
 
     // private void OnEnable() => server.OnDetectionUpdated += UpdatePosition;
     // private void OnDisable() => server.OnDetectionUpdated -= UpdatePosition;
@@ -38,6 +38,15 @@ public class Blade : MonoBehaviour
     {
         cam = Camera.main;
 
+        if (detectionServer == null)
+        {
+            detectionServer = FindFirstObjectByType<DetectionServer>();
+            if (detectionServer == null)
+            {
+                Debug.LogError("DetectionServer not found in the scene!");
+            }
+        }
+
         Vector3 centerScreen = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
         lastScreenPosition = centerScreen;
         Vector3 worldCenter = GetScreenPosition(centerScreen);
@@ -47,66 +56,15 @@ public class Blade : MonoBehaviour
         if (trail) trail.enabled = false;
     }
 
-    private void Start()
-    {
-        ThreadStart ts = new ThreadStart(GetDetectionServer);
-        thread = new Thread(ts);
-        thread.Start();
-        Debug.Log($"TCP server started on port {connectionPort}");
-    }
-
-    private void GetDetectionServer()
-    {
-        server = new TcpListener(IPAddress.Any, connectionPort);
-        server.Start();
-
-        client = server.AcceptTcpClient();
-        running = true;
-
-        while (running)
-        {
-            
-            Connection();
-            
-        }
-
-        server.Stop();
-        Debug.Log("TCP server stopped");
-    }
-
-    private void Connection()
-    {
-        NetworkStream stream = client.GetStream();
-        byte[] buffer = new byte[client.ReceiveBufferSize];
-        int bytesRead = stream.Read(buffer, 0, client.ReceiveBufferSize);
-
-        string data = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-
-        if (data != null && data != "")
-        {
-            Debug.Log($"data: {data}");
-            try
-            {
-                detectionData = DetectionData.FromJson(data);
-                
-            }
-            catch (ArgumentException e)
-            {
-                Debug.Log(e);
-            }
-        }
-
-    }
 
 
     private void Update()
     {
-        // Vector3 mouseScreen = Input.mousePosition;
+        DetectionData detectionData = detectionServer?.GetLatestDetectionData();
+      
         Vector3 screenPosition = UpdatePosition(detectionData);
         Vector3 world = GetScreenPosition(screenPosition);
-        // Debug.Log($"world:{world}");
-        // Vector3 world = worldPosition;
-
+        
         Velocity = (world - lastPos) / Time.deltaTime;
         transform.position = world;
         lastPos = world;

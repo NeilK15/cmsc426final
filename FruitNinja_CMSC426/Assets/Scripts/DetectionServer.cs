@@ -12,20 +12,19 @@ public class DetectionServer : MonoBehaviour
     [SerializeField] public int connectionPort = 25001;
     [SerializeField] private float reconnectDelay = 2f;
 
-    public event Action<DetectionData> OnDetectionUpdated;
+    // public event Action<DetectionData> OnDetectionUpdated;
 
     private Thread thread;
     private TcpListener server;
     private TcpClient client;
     private bool running;
 
-    private DetectionData detectionData;
+    // private bool restartRequested = false;
 
-    private string pendingData;
-    private bool hasPendingData = false;
-
-    private ConcurrentQueue<DetectionData> detectionQueue = new ConcurrentQueue<DetectionData>();
-    private bool restartRequested = false;
+    private bool hasNewData;
+    private string writeBuffer;
+    private DetectionData readBuffer;
+    // private readonly object dataLock = new object();
 
     private void Start()
     {
@@ -37,7 +36,8 @@ public class DetectionServer : MonoBehaviour
         thread = new Thread(ts);
         thread.Start();
         running = true;
-        Debug.Log($"TCP server started on port {connectionPort}");
+
+        
     }
     private void OnDestroy()
     {
@@ -54,78 +54,78 @@ public class DetectionServer : MonoBehaviour
 
     private void Update()
     {
-        // if (hasPendingData)
-        // {
-        //     try
-        //     {
-        //         hasPendingData = false;
-        //         detectionData = DetectionData.FromJson(pendingData);
-        //         OnDetectionUpdated?.Invoke(detectionData);
-        //     }
-        //     catch (ArgumentException e)
-        //     {
-        //         // Parse error occured.
-        //         Debug.LogError($"Parse error: {e.Message}\nData:{pendingData}");
-        //     }
-        // }
 
-
-        while (detectionQueue.TryDequeue(out DetectionData data))
+        if (hasNewData)
         {
-            OnDetectionUpdated?.Invoke(data);
-        }
-        if (restartRequested)
-        {
-            restartRequested = false;
-            StopServer();
-            StartServer();
+            try
+            {
+                readBuffer = DetectionData.FromJson(writeBuffer);
+                hasNewData = false;
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Failed to parse detection data: {e.Message}");
+            }
+            
         }
     }
 
     private void GetDetectionServer()
     {
-        try
+        while (running)
         {
-            // Try starting the server/
-            server = new TcpListener(IPAddress.Any, connectionPort);
-            server.Start();
-
-            while (running)
+            try
             {
-                
+                // Try starting the server/
+                server = new TcpListener(IPAddress.Any, connectionPort);
+                server.Start();
+                Debug.Log($"TCP server started on port {connectionPort}");
                 GetDataStream();
-
             }
-        }
-        catch (Exception e)
-        {
-            Debug.LogError($"Server error: {e.Message}");
-
-            if (running)
+            catch (Exception e)
             {
-                restartRequested = true;
+                Debug.LogError($"Server error: {e.Message}");
+
+                if (running)
+                {
+                    Debug.Log($"Retrying server start in {reconnectDelay} seconds...");
+                    Thread.Sleep((int)(reconnectDelay * 1000));
+                }
+            }
+            finally
+            {
+                server?.Stop();
             }
         }
 
     }
     private void GetDataStream()
-    {   
+    {
         using TcpClient client = server.AcceptTcpClient();
         using NetworkStream stream = client.GetStream();
-        byte[] buffer = new byte[client.ReceiveBufferSize];
-        int bytesRead = stream.Read(buffer, 0, client.ReceiveBufferSize);
 
-        string data = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-
-        if (data != null && data != "")
+        while (running && client.Connected)
         {
-            Debug.Log($"data: {data}"); // Received data
+            byte[] buffer = new byte[client.ReceiveBufferSize];
+            int bytesRead = stream.Read(buffer, 0, client.ReceiveBufferSize);
 
-            // pendingData = data;
-            // hasPendingData = true;
-            detectionQueue.Enqueue(detectionData);
-            
-        } 
+            string data = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+
+            if (!string.IsNullOrEmpty(data))
+            {
+                writeBuffer = data;
+                hasNewData = true;
+                Debug.Log($"data: {data}"); // Received data
+
+
+            }
+        }
+    }
+
+    public DetectionData GetLatestDetectionData()
+    {   
+        return readBuffer;
+
     }
 
 }
