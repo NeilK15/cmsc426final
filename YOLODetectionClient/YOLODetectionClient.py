@@ -13,14 +13,7 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # Import pretrained model
 
 # Smaller faster model
-model = YOLO("yolo11n-pose.pt")
-# Slower more accuratte
-#model = YOLO("yolo11s-pose.pt")
-
-# Intialize webcam capture
-# cap = cv2.VideoCapture(0)
-# cap.set(3, 640)
-# cap.set(4, 480)
+model = YOLO("yolo11s-pose.onnx")
 
 window = "detection"
 
@@ -44,10 +37,6 @@ try:
                     print(msg)
                     time.sleep(10)
                     continue
-            # Capture web cam
-            # ret, img = cap.read()
-            # Get detection results generator
-            # results = model(img, stream=True)
             
             # 0 is input for webcan slightly faster than cv2 cap
             if torch.cuda.is_available():
@@ -61,7 +50,7 @@ try:
                 norm_keypts = result.keypoints.numpy().xyn
                 
                 keypts = result.keypoints.numpy().data
-                if keypts.shape[0] > 0:
+                if keypts.shape[0] > 0 and keypts.shape[1] > 0:
                     # If there is a detection
 
                     # Get wrist normalized_keypoints
@@ -75,12 +64,12 @@ try:
                     # Dictionary with data
                     detections = {'left': 
                                 {
-                                    'detected': leftwrist_visibility>0.5, 
+                                    'detected': leftwrist_visibility > 0.5, 
                                     'x':leftwrist[0],
                                     'y':leftwrist[1]
                                 },
                                 'right':{
-                                    'detected': rightwrist_visibility>0.5, 
+                                    'detected': rightwrist_visibility > 0.5, 
                                     'x':rightwrist[0],
                                     'y':rightwrist[1]
                                 }
@@ -91,9 +80,9 @@ try:
                     sock.sendall(data.encode("utf-8"))
 
                 # Visualization:
-                # plot_img = result.plot()
-                # cv2.imshow(window, plot_img)
-                # cv2.waitKey(1)
+                plot_img = result.plot()
+                cv2.imshow(window, plot_img)
+                cv2.waitKey(1)
            
         except (ConnectionRefusedError, BrokenPipeError):
             # Connection error
@@ -108,5 +97,4 @@ try:
 
 finally:
     cv2.destroyAllWindows()
-    # cap.release()
     sock.close()

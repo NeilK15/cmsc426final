@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
@@ -15,20 +16,30 @@ public class Blade : MonoBehaviour
     private Vector3 lastPos;
     private TrailRenderer trail;
 
-    Thread thread;
+    private Thread thread;
     public int connectionPort = 25001;
-    TcpListener server;
-    TcpClient client;
-    bool running;
+    private TcpListener server;
+    private TcpClient client;
+    private bool running;
 
     public bool rightHanded = true;
+
+    // [SerializeField] private DetectionServer server;
+
+    // private void OnEnable() => server.OnDetectionUpdated += UpdatePosition;
+    // private void OnDisable() => server.OnDetectionUpdated -= UpdatePosition;
+
+
     private DetectionData detectionData;
+
+    private Vector3 lastScreenPosition;
 
     private void Awake()
     {
         cam = Camera.main;
 
         Vector3 centerScreen = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
+        lastScreenPosition = centerScreen;
         Vector3 worldCenter = GetScreenPosition(centerScreen);
         transform.position = lastPos = worldCenter;
 
@@ -54,7 +65,9 @@ public class Blade : MonoBehaviour
 
         while (running)
         {
+            
             Connection();
+            
         }
 
         server.Stop();
@@ -66,26 +79,38 @@ public class Blade : MonoBehaviour
         NetworkStream stream = client.GetStream();
         byte[] buffer = new byte[client.ReceiveBufferSize];
         int bytesRead = stream.Read(buffer, 0, client.ReceiveBufferSize);
-        
+
         string data = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-        
+
         if (data != null && data != "")
         {
             Debug.Log($"data: {data}");
-            detectionData = DetectionData.FromJson(data);
+            try
+            {
+                detectionData = DetectionData.FromJson(data);
+                
+            }
+            catch (ArgumentException e)
+            {
+                Debug.Log(e);
+            }
         }
+
     }
 
 
     private void Update()
     {
-        Vector3 mouseScreen = Input.mousePosition;
-        Vector3 world = GetScreenPosition(mouseScreen);
+        // Vector3 mouseScreen = Input.mousePosition;
+        Vector3 screenPosition = UpdatePosition(detectionData);
+        Vector3 world = GetScreenPosition(screenPosition);
+        // Debug.Log($"world:{world}");
+        // Vector3 world = worldPosition;
 
         Velocity = (world - lastPos) / Time.deltaTime;
         transform.position = world;
         lastPos = world;
-
+        lastScreenPosition = screenPosition;
         if (trail != null)
         {
             trail.enabled = Velocity.magnitude >= cutVelocityThreshold;
@@ -95,22 +120,34 @@ public class Blade : MonoBehaviour
     /** TOD: CHANGE TO USE SCREEN CAPTURE **/
     private Vector3 GetScreenPosition(Vector3 screenPosition)
     {
-        if (detectionData is not null)
-        {
-            if (rightHanded && detectionData.right.detected)
-            {
-                screenPosition.x = Screen.width * (1-detectionData.right.x);
-                screenPosition.y = Screen.height * (1-detectionData.right.y);
-            }
-            else if (!rightHanded && detectionData.left.detected)
-            {
-                screenPosition.x = Screen.width * (1-detectionData.left.x);
-                screenPosition.y = Screen.height * (1-detectionData.left.y);
-            }
-        }
         screenPosition.z = Mathf.Abs(cam.transform.position.z);
         Vector3 worldPos = cam.ScreenToWorldPoint(screenPosition);
         worldPos.z = 0; // lock to 2D plane
         return worldPos;
+    }
+
+
+    private Vector3 UpdatePosition(DetectionData detectionData)
+    {
+        Vector3 screenPosition = lastScreenPosition;
+        if (detectionData is not null)
+        {
+
+            if (rightHanded && detectionData.right.detected)
+            {
+                screenPosition.x = Screen.width * (1 - detectionData.right.x);
+                screenPosition.y = Screen.height * (1 - detectionData.right.y);
+                
+            }
+            else if (!rightHanded && detectionData.left.detected)
+            {
+                screenPosition.x = Screen.width * (1 - detectionData.left.x);
+                screenPosition.y = Screen.height * (1 - detectionData.left.y);
+
+            }
+            
+        }
+        screenPosition.z = 0.0f;
+        return screenPosition;
     }
 }
