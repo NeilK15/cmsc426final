@@ -21,7 +21,11 @@ public class GameInstance : MonoBehaviour
 
         Instance = this;
         GameAccess.RegisterGameInstance(this);
-        DontDestroyOnLoad(gameObject);
+
+        /* Had to comment out this line because keeping the gameObject loaded broke the 
+         *  scene management (going back and forth between the start scene and main game) 
+         */
+        // DontDestroyOnLoad(gameObject);
 
         StartCoroutine(Init());
     }
@@ -39,7 +43,7 @@ public class GameInstance : MonoBehaviour
 
             GameAccess.RegisterGameMode(gameMode);
             GameAccess.RegisterGameState(gameState);
-            
+
             StartCoroutine(gameMode.Init());
             StartCoroutine(gameState.Init());
 
