@@ -5,7 +5,7 @@ public class FruitNinjaCore : MonoBehaviour
     [SerializeField] private UILayerRequest FruitNinjaHUD;
     [SerializeField] private GameObject FruitSpawnerPrefab;
     public FruitSpawner fruitSpawner { get; private set; }
-    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void StartFruitNinja()
     {
@@ -19,6 +19,9 @@ public class FruitNinjaCore : MonoBehaviour
 
         Debug.Log("End fruit ninja");
         fruitSpawner.End();
+
+        // Opening end screen UI
+        UiManager.Instance.EndGame();
     }
 
 }
