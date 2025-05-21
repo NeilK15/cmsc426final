@@ -53,7 +53,7 @@ public class Blade : MonoBehaviour
         transform.position = lastPos = worldCenter;
 
         trail = GetComponentInChildren<TrailRenderer>();
-        if (trail) trail.enabled = false;
+        if (trail) trail.enabled = true;
     }
 
 
@@ -69,10 +69,10 @@ public class Blade : MonoBehaviour
         transform.position = world;
         lastPos = world;
         lastScreenPosition = screenPosition;
-        if (trail != null)
-        {
-            trail.enabled = Velocity.magnitude >= cutVelocityThreshold;
-        }
+        // if (trail != null)
+        // {
+        //     trail.enabled = Velocity.magnitude >= cutVelocityThreshold;
+        // }
     }
 
     /** TOD: CHANGE TO USE SCREEN CAPTURE **/
