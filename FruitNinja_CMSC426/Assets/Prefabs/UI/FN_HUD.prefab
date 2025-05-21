@@ -96,15 +96,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.47798735, g: 0.47798735, b: 0.47798735, a: 1}
+  m_Color: {r: 0.3962264, g: 0.22552507, b: 0.22552507, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 78af0464e65b0a345a5a525cf5593f25, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -187,7 +187,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2663378138273782586, guid: efeb4f58db33a084789ad5993a8ab114, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -50
+      value: -100
       objectReference: {fileID: 0}
     - target: {fileID: 2663378138273782586, guid: efeb4f58db33a084789ad5993a8ab114, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -223,26 +223,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3263738006357059911}
     m_Modifications:
-    - target: {fileID: 3937092416715815332, guid: 8f8a4287a4e2e1f448860ffff49cc002, type: 3}
-      propertyPath: m_text
-      value: score 0:00
-      objectReference: {fileID: 0}
-    - target: {fileID: 3937092416715815332, guid: 8f8a4287a4e2e1f448860ffff49cc002, type: 3}
-      propertyPath: m_margin.x
-      value: 50.224567
-      objectReference: {fileID: 0}
-    - target: {fileID: 3937092416715815332, guid: 8f8a4287a4e2e1f448860ffff49cc002, type: 3}
-      propertyPath: m_margin.z
-      value: -35.07791
-      objectReference: {fileID: 0}
-    - target: {fileID: 3937092416715815332, guid: 8f8a4287a4e2e1f448860ffff49cc002, type: 3}
-      propertyPath: m_TextWrappingMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3937092416715815332, guid: 8f8a4287a4e2e1f448860ffff49cc002, type: 3}
-      propertyPath: m_HorizontalAlignment
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5523616764734282655, guid: 8f8a4287a4e2e1f448860ffff49cc002, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -305,7 +285,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5523616764734282655, guid: 8f8a4287a4e2e1f448860ffff49cc002, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 50
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5523616764734282655, guid: 8f8a4287a4e2e1f448860ffff49cc002, type: 3}
       propertyPath: m_AnchoredPosition.y

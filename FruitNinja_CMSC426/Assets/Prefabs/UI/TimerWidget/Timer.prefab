@@ -50,9 +50,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 6841725196043450625}
-  onTimerEnd:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &5566144603620911568
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,8 +142,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 64
+  m_fontSizeBase: 64
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
