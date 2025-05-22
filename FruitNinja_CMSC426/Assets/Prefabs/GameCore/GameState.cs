@@ -1,18 +1,19 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class GameState : MonoBehaviour
 {
-    private TimerComponent timerComponent;
+    public TimerComponent timerComponent;
     public int Score { get; private set; } = 0;
 
     public UnityEvent<int> OnScoreChanged = new(); // event: new score passed
 
-    private void Start()
+    public IEnumerator Init()
     {
-        GameAccess.RegisterGameState(this);
         timerComponent = gameObject.AddComponent<TimerComponent>();
         timerComponent.StartTimer(60f);
+        yield return null;
     }
 
     public float GetTime() => timerComponent.RemainingTime;
@@ -22,5 +23,9 @@ public class GameState : MonoBehaviour
     {
         Score += amount;
         OnScoreChanged.Invoke(Score);
+    }
+    public void ResetScore()
+    {
+        Score = 0;
     }
 }

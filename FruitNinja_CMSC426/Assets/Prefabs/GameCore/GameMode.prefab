@@ -45,3 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controllerPrefab: {fileID: 5037126337541252613, guid: c9cdf39a4b67ad34aae1f73b4d17ed45, type: 3}
+  FruitNinjaCorePrefab: {fileID: 3185626331418346422, guid: d7ec2eb11f9d309499d3a65ba672b807, type: 3}

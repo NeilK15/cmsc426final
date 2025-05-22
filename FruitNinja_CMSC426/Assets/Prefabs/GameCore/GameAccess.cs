@@ -1,3 +1,4 @@
+using UnityEngine;
 public static class GameAccess
 {
     private static GameInstance _gameInstance;
@@ -32,16 +33,44 @@ public static class GameAccess
         else _gameMode = gm;
     }
 
-
     public static void RegisterController(Controller ctrl)
     {
         if (_controller != null) UnityEngine.Object.Destroy(ctrl.gameObject);
         else _controller = ctrl;
     }
 
-    public static Controller GetController() => _controller;
-    public static GameInstance GetGameInstance() => _gameInstance;
-    public static GameState GetGameState() => _gameState;
-    public static MainHUD GetMainHUD() => _mainHUD;
-    public static GameMode GetGameMode() => _gameMode;
+    public static Controller GetController()
+    {
+        if (_controller == null)
+            Debug.LogWarning("GameAccess: Controller accessed before registration.");
+        return _controller;
+    }
+
+    public static GameInstance GetGameInstance()
+    {
+        if (_gameInstance == null)
+            Debug.LogWarning("GameAccess: GameInstance accessed before registration.");
+        return _gameInstance;
+    }
+
+    public static GameState GetGameState()
+    {
+        if (_gameState == null)
+            Debug.LogWarning("GameAccess: GameState accessed before registration.");
+        return _gameState;
+    }
+
+    public static MainHUD GetMainHUD()
+    {
+        if (_mainHUD == null)
+            Debug.LogWarning("GameAccess: MainHUD accessed before registration.");
+        return _mainHUD;
+    }
+
+    public static GameMode GetGameMode()
+    {
+        if (_gameMode == null)
+            Debug.LogWarning("GameAccess: GameMode accessed before registration.");
+        return _gameMode;
+    }
 }
